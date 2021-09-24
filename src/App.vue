@@ -1,22 +1,32 @@
 <template>
   <v-app>
-    <v-main style="display: flex">
-      <guild-nav-bar/>
-      <page-nav-bar/>
-      <router-view/>
+    <v-main>
+      <div class="page-wrapper">
+        <guild-nav-bar :on-guild="onGuildChange" :on-home="goHome"/>
+        <nav-drawer/>
+        <router-view/>
+      </div>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import GuildNavBar from "./components/GuildNavBar.vue";
-import PageNavBar from "./components/PageNavBar.vue";
+import NavDrawer from "./components/NavDrawer.vue";
 
 export default {
   name: 'App',
   components: {
     GuildNavBar,
-    PageNavBar
+    NavDrawer
+  },
+  methods: {
+    goHome() {
+
+    },
+    onGuildChange() {
+
+    },
   },
   data: () => ({
     //
@@ -24,6 +34,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
+.page-wrapper {
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+}
 
 </style>
