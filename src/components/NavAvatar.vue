@@ -1,12 +1,12 @@
 <template>
-  <div class="component" @click="preSelect">
+  <div class="component-wrapper" @click="preSelect">
     <div class="flex-container">
-      <div class="selection-wrapper" aria-hidden="true">
-        <span class="selection"/>
+      <div ref="selection-wrapper" class="selection-wrapper" aria-hidden="true">
+        <span ref="selection" class="selection"/>
       </div>
       <div class="cover-wrapper">
-        <img v-if="!!img" class="cover" alt="Guild pfp" :src="img"/>
-        <v-icon v-else class="cover">mdi-home</v-icon>
+        <img v-if="!!img" ref="cover" class="cover" alt="Guild pfp" :src="img"/>
+        <v-icon v-else ref="cover" class="cover">mdi-home</v-icon>
       </div>
     </div>
   </div>
@@ -16,19 +16,24 @@
 export default {
   name: "NavAvatar",
   props: {
-    img: {
+    guildId: {
       type: String,
-      required: false,
-      default: null
-    },
-    initSelected: {
-      type: Boolean,
-      required: false,
-      default: false,
+      required: true,
+      default: null,
     },
     onClick: {
       type: Function,
       required: true,
+    },
+    selected: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    img: {
+      type: String,
+      required: false,
+      default: null
     },
     transparent: {
       type: Boolean,
@@ -36,53 +41,52 @@ export default {
       default: true,
     },
   },
-  data() {
-    return {
-      selected: false
-    }
-  },
   methods: {
     preSelect() {
-      let changed = this.selected;
-
-      if (this.onClick !== null)
-        this.selected = this.onClick(this.selected);
-
-      if (changed !== this.selected)
-        this.selected ? this.select() : this.deselect();
+      this.onClick() ? this.select() : this.deselect();
     },
     select() {
-      this.selected = true;
-      document.documentElement.style.setProperty('--selected-height', '40px');
-      document.documentElement.style.setProperty('--selected-width', '8px');
-      document.documentElement.style.setProperty('--cover-radius', '25%');
-      document.documentElement.style.setProperty('--cover-color', '#5865F2FF'); //TODO: Separate light and dark mode
+      console.log("selected");
+
+      this.$refs["selection-wrapper"].style.width = '2000px';
+      this.$refs.selection.style.height = '2000px';
+
+      this.$refs.cover.$el.style.borderRadius = '25%';
+      this.$refs.cover.$el.style.backgroundColor = '#5865F2FF'; //TODO: Separate light and dark mode
     },
     deselect() {
-      this.selected = false;
-      document.documentElement.style.setProperty('--selected-height', '20px');
-      document.documentElement.style.setProperty('--selected-width', '0px');
-      document.documentElement.style.setProperty('--cover-radius', '50%');
-      document.documentElement.style.setProperty('--cover-color', 'rgba(176,176,176,0.49)');
+      console.log("de--selected");
+
+      this.$refs["selection-wrapper"].style.width = '0px';
+      this.$refs.selection.style.height = '20px';
+
+      this.$refs.cover.$el.style.borderRadius = '50%';
+      this.$refs.cover.$el.style.backgroundColor = 'rgba(176,176,176,0.49)';
     },
   },
-  created() {
-    if (this.initSelected)
+  mounted() {
+    console.log("Mount", this.selected);
+    if (this.selected) {
+      console.log("Selected")
       this.select();
+    } else {
+      console.log("not - Selected")
+      this.deselect();
+    }
   },
 }
 </script>
 
 <style scoped>
 
-:root {
+/*:root {
   --selected-width: 0;
   --selected-height: 20;
   --cover-radius: 50%;
   --cover-color: rgba(176, 176, 176, 0.88)
-}
+}*/
 
-.component {
+.component-wrapper {
   position: relative;
   width: 100%;
 }
@@ -90,28 +94,36 @@ export default {
 .flex-container {
   position: relative;
   display: flex;
+
   justify-content: center;
   margin-bottom: 8px;
 }
 
 .selection-wrapper {
   display: flex;
+
   height: 48px;
   width: 8px;
+
   top: 0;
   left: 0;
   position: absolute;
+
   margin-top: auto;
   margin-bottom: auto;
+
   align-items: center;
   overflow: hidden;
 }
 
 .selection {
   position: absolute;
-  height: var(--selected-height);
-  width: var(--selected-width);
+
+  height: 20px;
+  width: 0;
+
   background-color: #FFFFFF;
+
   margin-left: -4px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -121,8 +133,9 @@ export default {
 .cover {
   width: 48px;
   height: 48px;
-  background: var(--cover-color);
-  border-radius: var(--cover-radius);
+
+  background: rgba(176, 176, 176, 0.88);
+  border-radius: 50%;
   transition: 350ms;
 }
 
