@@ -1,9 +1,9 @@
 <template>
   <v-sheet class="wrapper" color="tertiary" dark>
-    <nav-avatar :guild-id="''" :selected="true" :on-click="onHomeClicked"/>
+    <nav-avatar ref="home" :guild-id="''" :selected="true" :on-click="onHomeClicked"/>
     <v-divider style="width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 10px;"/>
     <div v-for="guild in this.$store.state.client.guilds" v-bind:key="guild.id">
-      <nav-avatar :guild-id="guild.id" :selected="false" :on-click="() => {return onGuildClicked(guild)}"/>
+      <nav-avatar :ref="'guild-' + guild.id" :guild-id="guild.id" :selected="false" :on-click="() => {return onGuildClicked(guild)}"/>
     </div>
   </v-sheet>
 </template>
@@ -16,20 +16,30 @@ export default {
   components: {NavAvatar},
   methods: {
     onHomeClicked() {
-      this.currentID = null;
+      if (this.currentID === '')
+        return;
+      this.$refs["guild-" + this.currentID][0].deselect();
+      this.currentID = '';
       return true;
     },
     onGuildClicked(guild) {
-      console.log(guild)
-      let change = this.currentID === guild.id || this.currentID === '';
+      let change = this.currentID !== guild.id;
+      if (!change)
+        return false;
+
+      if (this.currentID !== '')
+        this.$refs["guild-" + this.currentID][0].deselect();
+      else
+        this.$refs.home.deselect();
+
       this.currentID = (change ? guild.id : this.currentID)
-      return change;
+      return true;
     }
   },
   data() {
     return {
       homeSelected: false,
-      currentID: null,
+      currentID: '',
     }
   }
 }

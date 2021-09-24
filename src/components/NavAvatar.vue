@@ -43,21 +43,18 @@ export default {
   },
   methods: {
     preSelect() {
-      this.onClick() ? this.select() : this.deselect();
+      if (this.onClick())
+        this.select();
     },
     select() {
-      console.log("selected");
+      this.$refs.selection.style.width = '8px';
+      this.$refs.selection.style.height = '40px';
 
-      this.$refs["selection-wrapper"].style.width = '2000px';
-      this.$refs.selection.style.height = '2000px';
-
-      this.$refs.cover.$el.style.borderRadius = '25%';
+      this.$refs.cover.$el.style.borderRadius = '30%';
       this.$refs.cover.$el.style.backgroundColor = '#5865F2FF'; //TODO: Separate light and dark mode
     },
     deselect() {
-      console.log("de--selected");
-
-      this.$refs["selection-wrapper"].style.width = '0px';
+      this.$refs.selection.style.width = '0';
       this.$refs.selection.style.height = '20px';
 
       this.$refs.cover.$el.style.borderRadius = '50%';
@@ -65,12 +62,9 @@ export default {
     },
   },
   mounted() {
-    console.log("Mount", this.selected);
     if (this.selected) {
-      console.log("Selected")
       this.select();
     } else {
-      console.log("not - Selected")
       this.deselect();
     }
   },
@@ -78,13 +72,6 @@ export default {
 </script>
 
 <style scoped>
-
-/*:root {
-  --selected-width: 0;
-  --selected-height: 20;
-  --cover-radius: 50%;
-  --cover-color: rgba(176, 176, 176, 0.88)
-}*/
 
 .component-wrapper {
   position: relative;
@@ -119,15 +106,14 @@ export default {
 .selection {
   position: absolute;
 
-  height: 20px;
-  width: 0;
+  width: 8px;
 
   background-color: #FFFFFF;
 
   margin-left: -4px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
-  transition: 400ms;
+  transition: 200ms;
 }
 
 .cover {
@@ -139,13 +125,12 @@ export default {
   transition: 350ms;
 }
 
-.flex-container:hover > .cover-wrapper > .cover {
-  border-radius: 25% !important;
+.flex-container:hover >>> .cover {
+  border-radius: 30% !important;
 }
 
-.flex-container:hover > .selection-wrapper > .selection {
-  display: block;
-  width: 8px;
+.flex-container:hover >>> .selection {
+  width: 8px !important;
   height: 20px;
 }
 
