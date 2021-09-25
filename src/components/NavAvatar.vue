@@ -1,5 +1,5 @@
 <template>
-  <div class="component-wrapper" @click="preSelect">
+  <div class="nav-avatar-wrapper" @click="preSelect">
     <div class="flex-container">
       <div ref="selection-wrapper" class="selection-wrapper" aria-hidden="true">
         <span ref="selection" class="selection"/>
@@ -73,7 +73,7 @@ export default {
 
 <style scoped>
 
-.component-wrapper {
+.nav-avatar-wrapper {
   position: relative;
   width: 100%;
 }

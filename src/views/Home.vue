@@ -1,11 +1,15 @@
 <template>
-  <div></div>
+  <div>
+
+  </div>
 </template>
 
 <script>
-
-  export default {
-    name: 'Home',
-    components: {},
-  }
+export default {
+  name: "Home"
+}
 </script>
+
+<style scoped>
+
+</style>

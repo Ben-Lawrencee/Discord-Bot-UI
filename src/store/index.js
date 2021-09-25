@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    client: {
+    client:
+    /*{
       guilds: [
         {
           id: "0"
@@ -21,7 +22,8 @@ export default new Vuex.Store({
         },
       ],
       users: {}
-    }
+    }*/
+      null
   },
   mutations: {
   },

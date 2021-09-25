@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="wrapper" color="tertiary" dark>
+  <v-sheet class="guild-nav-bar-wrapper" color="tertiary" dark>
     <nav-avatar ref="home" :guild-id="''" :selected="true" :on-click="onHomeClicked"/>
     <v-divider style="width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 10px;"/>
 
@@ -60,7 +60,7 @@ export default {
 
 <style scoped>
 
-.wrapper {
+.guild-nav-bar-wrapper {
   width: 72px;
   height: 100%;
   padding-top: 10px;

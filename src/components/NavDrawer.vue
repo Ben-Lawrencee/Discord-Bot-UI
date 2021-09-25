@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="guild-nav-bar-wrapper">
     <div class="page-header">
       <guild-header/>
       <dm-header/>
@@ -29,7 +29,7 @@ export default {
 
 <style scoped>
 
-.wrapper {
+.guild-nav-bar-wrapper {
   width: 240px;
   height: 100%;
   background: #2f3136;
