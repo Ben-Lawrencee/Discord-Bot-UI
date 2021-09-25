@@ -90,6 +90,9 @@
 
 <script>
 export default {
+  created() {
+    console.log(this)
+  },
   data () {
     return {
       clipped: false,

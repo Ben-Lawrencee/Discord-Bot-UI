@@ -1,10 +1,6 @@
 <template>
   <v-app>
     <v-main>
-      <script type="text/javascript" src="discord.master.min.js"></script>
-      <script type="text/javascript">
-        console.log(Discord);
-      </script>
       <login-view v-if="isLoggedOut"/>
       <div v-else class="page-wrapper">
         <guild-nav-bar :on-guild="onGuildChange" :on-home="goHome"/>
@@ -26,6 +22,9 @@ export default {
     LoginView,
     GuildNavBar,
     NavDrawer
+  },
+  created() {
+    console.log(this)
   },
   methods: {
     isLoggedOut() {
