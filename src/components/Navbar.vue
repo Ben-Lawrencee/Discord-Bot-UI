@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="guild-nav-bar-wrapper" color="tertiary" dark>
+  <v-sheet class="nav-bar-wrapper" color="tertiary" dark>
     <nav-avatar ref="home" :guild-id="''" :selected="true" :on-click="onHomeClicked"/>
     <v-divider style="width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 10px;"/>
 
@@ -14,7 +14,7 @@
 import NavAvatar from "./NavAvatar.vue";
 
 export default {
-  name: "GuildNavBar.vue",
+  name: "Navbar",
   components: {NavAvatar},
   props: {
     onHome: {
@@ -61,8 +61,8 @@ export default {
 
 <style scoped>
 
-.guild-nav-bar-wrapper {
-  width: 72px;
+.nav-bar-wrapper {
+  min-width: 72px;
   height: 100%;
   padding-top: 10px;
 }

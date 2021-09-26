@@ -1,12 +1,10 @@
 <template>
-  <div>
-    read if gay
-  </div>
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: "ProfileFooter"
+  name: "GuildSidebarHeaderNav"
 }
 </script>
 

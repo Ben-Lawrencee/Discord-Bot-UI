@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Friends from '../views/Friends.vue'
+import DirectMessage from "../views/DirectMessage.vue";
+import GuildChannel from "../views/GuildChannel.vue"
 
 Vue.use(VueRouter)
 
@@ -12,7 +15,26 @@ const routes = [
     {
         path: '/Home',
         name: 'Home',
-        component: Home
+        component: Home,
+        type: "DirectView"
+    },
+    {
+        path: '/channel/@bot',
+        name: 'Friends',
+        component: Friends,
+        type: "DirectView"
+    },
+    {
+        path: '/channel/@bot/:id',
+        name: 'DM',
+        component: DirectMessage,
+        type: "DirectView"
+    },
+    {
+        path: '/channel/guild/:id',
+        name: 'GuildChannel',
+        component: GuildChannel,
+        type: "GuildView"
     }
 ]
 

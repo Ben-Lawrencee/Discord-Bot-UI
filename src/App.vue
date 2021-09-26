@@ -2,9 +2,9 @@
   <v-app>
     <v-main>
       <login-view v-if="this.$route.name === 'Login'"/>
-      <div v-else class="page-wrapper">
-        <guild-nav-bar :on-guild="onGuildChange" :on-home="goHome"/>
-        <nav-drawer/>
+      <div v-else class="wrapper">
+        <navbar :on-guild="onGuildChange" :on-home="goHome"/>
+        <sidebar/>
         <router-view/>
       </div>
     </v-main>
@@ -13,15 +13,15 @@
 
 <script>
 import LoginView from "./views/LoginView.vue"
-import GuildNavBar from "./components/GuildNavBar.vue";
-import NavDrawer from "./components/NavDrawer.vue";
+import Navbar from "./components/Navbar.vue";
+import Sidebar from "./components/Sidebar.vue";
 
 export default {
   name: 'App',
   components: {
     LoginView,
-    GuildNavBar,
-    NavDrawer
+    Navbar,
+    Sidebar
   },
   methods: {
     goHome() {
@@ -34,7 +34,7 @@ export default {
   created() {
     if (this.$store.state.client === null && this.$route.name !== 'Login') {
       console.log("Redirected to Login from initialization")
-      this.$router.push({name: 'Login', path: '/Login'})
+      this.$router.push({ name: 'Login', path: '/Login' })
     }
 
     this.$router.beforeEach((to, from, next) => {
@@ -58,7 +58,7 @@ export default {
 
 <style scoped>
 
-.page-wrapper {
+.wrapper {
   display: flex;
 
   width: 100%;

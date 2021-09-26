@@ -1,12 +1,12 @@
 <template>
-  <div class="login-wrapper">
+  <div class="login-card-wrapper">
     <v-card elevation="5">
       <div class="card-styler">
         <v-card-title>Welcome to Discord Bot UI!</v-card-title>
-        <v-divider style="margin: 0 16px"/>
-        <v-text-field class="form-input-field" style="margin-top: 32px" label="Enter your Discord Bot's Token" v-on:input="inputChanged"/>
+        <v-divider style="margin: 0 16px;"/>
+        <v-text-field class="form-input-field" style="margin-top: 32px;" label="Enter your Discord Bot's Token" v-on:input="inputChanged"/>
         <v-card-actions>
-          <v-btn class="btn-login" color="info" dark :loading="loading" v-on:click="login">
+          <v-btn class="btn-login" color="info" :loading="loading" v-on:click="login">
             Login
           </v-btn>
         </v-card-actions>
@@ -19,7 +19,7 @@
 // const discord = require('discord.js/browser');
 
 export default {
-  name: "LogInCard",
+  name: "LoginCard",
   data() {
     return {
       token: '',
@@ -41,9 +41,9 @@ export default {
       //TODO: Login client
       setTimeout(() => {
         this.loading = false;
-        this.$store.state.client = { read: "if gay" }
-        this.$router.push({ name: 'Home', path: '/Home' })
+        this.$store.state.client = {}
         console.log("Logged in", this.$store.state.client)
+        this.$router.push({ name: 'Home', path: '/Home' })
       }, 1000);
     }
   }
@@ -52,7 +52,7 @@ export default {
 
 <style scoped>
 
-.login-wrapper {
+.login-card-wrapper {
   margin: auto;
   width: 480px;
   max-height: max-content;
