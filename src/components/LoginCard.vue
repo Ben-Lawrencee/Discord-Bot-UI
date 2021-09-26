@@ -1,6 +1,6 @@
 <template>
   <div class="login-wrapper">
-    <v-card>
+    <v-card elevation="5">
       <div class="card-styler">
         <v-card-title>Welcome to Discord Bot UI!</v-card-title>
         <v-divider style="margin: 0 16px"/>
@@ -33,12 +33,18 @@ export default {
     login() {
       this.loading = true;
 
-      // const client = new discord.Client();
-      // console.log(client.login(this.token));
+      /*const client = new discord.Client();
+      console.log(client.login(this.token));
 
-      // this.$store.state.client = client
+      this.$store.state.client = client*/
       this.$store.state.token = this.token;
       //TODO: Login client
+      setTimeout(() => {
+        this.loading = false;
+        this.$store.state.client = { read: "if gay" }
+        this.$router.push({ name: 'Home', path: '/Home' })
+        console.log("Logged in", this.$store.state.client)
+      }, 1000);
     }
   }
 }

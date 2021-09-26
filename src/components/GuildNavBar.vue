@@ -3,8 +3,9 @@
     <nav-avatar ref="home" :guild-id="''" :selected="true" :on-click="onHomeClicked"/>
     <v-divider style="width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 10px;"/>
 
-    <div v-for="guild in this.$store.state.client.guilds" v-bind:key="guild.id">
-      <nav-avatar :ref="'guild-' + guild.id" :guild-id="guild.id" :selected="false" :on-click="() => {return onGuildClicked(guild)}"/>
+    <div v-for="guild in this.$store.state.guilds" v-bind:key="guild.id">
+      <nav-avatar :ref="'guild-' + guild.id" :guild-id="guild.id" :selected="false"
+                  :on-click="() => {return onGuildClicked(guild)}"/>
     </div>
   </v-sheet>
 </template>
