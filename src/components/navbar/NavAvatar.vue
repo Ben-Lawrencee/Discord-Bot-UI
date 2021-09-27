@@ -51,14 +51,16 @@ export default {
       this.$refs.selection.style.height = '40px';
 
       this.$refs.cover.$el.style.borderRadius = '30%';
-      this.$refs.cover.$el.style.backgroundColor = '#5865F2FF'; //TODO: Separate light and dark mode
+      if (!this.transparent)
+        this.$refs.cover.$el.style.backgroundColor = '#5865F2FF'; //TODO: Separate light and dark mode
     },
     deselect() {
       this.$refs.selection.style.width = '0';
       this.$refs.selection.style.height = '20px';
 
       this.$refs.cover.$el.style.borderRadius = '50%';
-      this.$refs.cover.$el.style.backgroundColor = 'rgba(107,107,107,0.49)';
+      if (!this.transparent)
+        this.$refs.cover.$el.style.backgroundColor = 'rgba(107,107,107,0.49)';
     },
   },
   mounted() {
@@ -120,7 +122,7 @@ export default {
   width: 48px;
   height: 48px;
 
-  background: rgba(176, 176, 176, 0.88);
+  background: transparent;
   border-radius: 50%;
   transition: 350ms;
 }

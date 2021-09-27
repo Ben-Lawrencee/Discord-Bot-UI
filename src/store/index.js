@@ -6,8 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     client: null,
-    guilds: null,
-    users: null
+    guilds: [],
+    users: []
     /*guilds: [
       {
         id: "0"

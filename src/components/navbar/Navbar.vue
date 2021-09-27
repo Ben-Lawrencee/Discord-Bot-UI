@@ -1,11 +1,11 @@
 <template>
   <v-sheet class="nav-bar-wrapper" color="tertiary" dark>
-    <nav-avatar ref="home" :guild-id="''" :selected="true" :on-click="onHomeClicked"/>
+    <nav-avatar ref="home" :guild-id="''" :transparent="false" :selected="true" :on-click="onHomeClicked"/>
     <v-divider style="width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 10px;"/>
 
     <div v-for="guild in this.$store.state.guilds" v-bind:key="guild.id">
-      <nav-avatar :ref="'guild-' + guild.id" :guild-id="guild.id" :selected="false"
-                  :on-click="() => {return onGuildClicked(guild)}"/>
+      <nav-avatar :ref="`guild-${guild.id}`" :guild-id="guild.id" :selected="false"
+                  transparent :on-click="() => {return onGuildClicked(guild)}"/>
     </div>
   </v-sheet>
 </template>
@@ -64,7 +64,14 @@ export default {
 .nav-bar-wrapper {
   min-width: 72px;
   height: 100%;
+  max-height: 100vh;
   padding-top: 10px;
+  overflow: hidden scroll;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  width: 0;
 }
 
 </style>

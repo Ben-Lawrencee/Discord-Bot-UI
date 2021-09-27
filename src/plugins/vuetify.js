@@ -17,7 +17,7 @@ export default new Vuetify({
                 info: '#5865F2',
                 success: '#45DC7C',
                 warning: '#FFC107',
-                selected: '#5865F2FF',
+                selected: '#5865f3',
             }
         }
     }

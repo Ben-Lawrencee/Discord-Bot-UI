@@ -13,8 +13,8 @@
 
 <script>
 import LoginView from "./views/LoginView.vue"
-import Navbar from "./components/Navbar.vue";
-import Sidebar from "./components/Sidebar.vue";
+import Navbar from "./components/navbar/Navbar.vue";
+import Sidebar from "./components/sidebar/Sidebar.vue";
 
 export default {
   name: 'App',
@@ -63,6 +63,12 @@ export default {
 
   width: 100%;
   height: 100%;
+  overflow: hidden scroll;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  width: 0;
 }
 
 </style>

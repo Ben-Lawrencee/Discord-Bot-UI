@@ -4,7 +4,8 @@
       <div class="card-styler">
         <v-card-title>Welcome to Discord Bot UI!</v-card-title>
         <v-divider style="margin: 0 16px;"/>
-        <v-text-field class="form-input-field" style="margin-top: 32px;" label="Enter your Discord Bot's Token" v-on:input="inputChanged"/>
+        <v-text-field class="form-input-field" style="margin-top: 32px;" label="Enter your Discord Bot's Token"
+                      v-on:input="inputChanged"/>
         <v-card-actions>
           <v-btn class="btn-login" color="info" :loading="loading" v-on:click="login">
             Login
@@ -40,11 +41,28 @@ export default {
       this.$store.state.token = this.token;
       //TODO: Login client
       setTimeout(() => {
-        this.loading = false;
         this.$store.state.client = {}
+
+        for (let i = 0; i < 30; i++) {
+          this.$store.state.guilds.push({id: '' + i})
+          this.$store.state.users.push({
+            id: '' + i,
+            display: true,
+            presence: {
+              status: "online",
+              activities: [{name: "Whatever I want can go in here"}]},
+            username: i + '-user',
+            displayAvatarUrl: () => {
+              return "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg"
+            }
+          })
+        }
+
         console.log("Logged in", this.$store.state.client)
-        this.$router.push({ name: 'Home', path: '/Home' })
-      }, 1000);
+        this.loading = false;
+
+        this.$router.push({name: 'Home', path: '/Home'})
+      }, 700);
     }
   }
 }
