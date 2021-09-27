@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-avatar-wrapper" @click="preSelect">
+  <div class="nav-avatar-wrapper" @click="onClick(guildId)">
     <div class="flex-container">
       <div ref="selection-wrapper" class="selection-wrapper" aria-hidden="true">
         <span ref="selection" class="selection"/>
@@ -19,16 +19,15 @@ export default {
     guildId: {
       type: String,
       required: true,
-      default: null,
-    },
-    onClick: {
-      type: Function,
-      required: true,
     },
     selected: {
       type: Boolean,
       required: false,
-      default: true,
+      default: false,
+    },
+    onClick: {
+      type: Function,
+      required: true,
     },
     img: {
       type: String,
@@ -42,15 +41,12 @@ export default {
     },
   },
   methods: {
-    preSelect() {
-      if (this.onClick())
-        this.select();
-    },
     select() {
       this.$refs.selection.style.width = '8px';
       this.$refs.selection.style.height = '40px';
 
       this.$refs.cover.$el.style.borderRadius = '30%';
+
       if (!this.transparent)
         this.$refs.cover.$el.style.backgroundColor = '#5865F2FF'; //TODO: Separate light and dark mode
     },
@@ -59,17 +55,29 @@ export default {
       this.$refs.selection.style.height = '20px';
 
       this.$refs.cover.$el.style.borderRadius = '50%';
+
       if (!this.transparent)
         this.$refs.cover.$el.style.backgroundColor = 'rgba(107,107,107,0.49)';
     },
   },
   mounted() {
-    if (this.selected) {
-      this.select();
-    } else {
-      this.deselect();
-    }
+    this.selected ? this.select() : this.deselect();
+    this.unwatch = this.$store.watch(
+        (state, getters) => getters.selectedGuild,
+        (newValue, oldValue) => {
+          if (newValue === this.guildId)
+            this.select();
+          else if (oldValue === this.guildId)
+            this.deselect();
+        }
+    )
   },
+  watch: {
+    selected: function (newVal) {
+      console.log("selected changed")
+      newVal ? this.select() : this.deselect();
+    }
+  }
 }
 </script>
 
@@ -141,6 +149,7 @@ export default {
   margin-right: auto;
   width: min-content;
   height: min-content;
+  cursor: pointer;
 }
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="user-wrapper" @click="preClick" ref="user-wrapper">
+  <div class="user-wrapper" @click="onClick(UserId)" ref="user-wrapper">
     <user-avatar :user-id="UserId" style="margin-right: 12px"/>
     <div class="user-content" ref="user-content">
       <div class="user-name">
@@ -28,9 +28,9 @@ export default {
       type: String,
       required: true
     },
-    highlighted: {
+    selected: {
       type: Boolean,
-      required: true
+      required: true,
     },
     onClick: {
       type: Function,
@@ -43,13 +43,18 @@ export default {
     }
   },
   methods: {
-    preClick() {
-      let successful = this.onClick(this.UserId);
-      if (successful) {
-        console.log(this.$refs["user-wrapper"])
-        this.$refs["user-wrapper"].style.background = 'rgba(255, 255, 255, 0.1)'
-        this.$refs["user-content"].style.color = 'rgba(255, 255, 255, .9)'
-      }
+    select() {
+      this.$refs["user-wrapper"].style.background = 'rgba(255, 255, 255, 0.1)'
+      this.$refs["user-content"].style.color = 'rgba(255, 255, 255, .9)'
+    },
+    deselect() {
+      this.$refs["user-wrapper"].style.background = 'transparent'
+      this.$refs["user-content"].style.color = '#8d9093'
+    }
+  },
+  watch: {
+    selected: function (val) {
+      val ? this.select() : this.deselect();
     }
   }
 }
@@ -63,6 +68,7 @@ export default {
   height: 42px;
   border-radius: 5px;
   padding: 0 8px;
+  cursor: pointer;
 }
 
 .user-wrapper:hover > .user-close {

@@ -40,14 +40,18 @@ export default {
       this.$store.state.client = client*/
       this.$store.state.token = this.token;
       //TODO: Login client
+      this.loadClient();
+    },
+    async loadClient() {
       setTimeout(() => {
         this.$store.state.client = {}
 
         for (let i = 0; i < 30; i++) {
-          this.$store.state.guilds.push({id: '' + i})
-          this.$store.state.users.push({
+          this.$store.commit('addGuild', { id: '' + i, selected: false })
+          this.$store.commit('addUser', {
             id: '' + i,
             display: true,
+            selected: false,
             presence: {
               status: "online",
               activities: [{name: "Whatever I want can go in here"}]},
@@ -58,11 +62,10 @@ export default {
           })
         }
 
-        console.log("Logged in", this.$store.state.client)
+        console.log("Logged in", this.$store.state)
         this.loading = false;
-
         this.$router.push({name: 'Home', path: '/Home'})
-      }, 700);
+      }, 1000)
     }
   }
 }

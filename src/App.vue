@@ -3,7 +3,7 @@
     <v-main>
       <login-view v-if="this.$route.name === 'Login'"/>
       <div v-else class="wrapper">
-        <navbar :on-guild="onGuildChange" :on-home="goHome"/>
+        <navbar/>
         <sidebar/>
         <router-view/>
       </div>
@@ -22,14 +22,6 @@ export default {
     LoginView,
     Navbar,
     Sidebar
-  },
-  methods: {
-    goHome() {
-      // Change global page to home
-    },
-    onGuildChange() {
-      // Load guild and change page globally
-    },
   },
   created() {
     if (this.$store.state.client === null && this.$route.name !== 'Login') {
