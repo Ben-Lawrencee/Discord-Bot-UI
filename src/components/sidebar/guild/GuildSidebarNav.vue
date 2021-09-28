@@ -12,4 +12,10 @@ export default {
 
 <style scoped>
 
+.guild-sidebar-nav-wrapper {
+  overflow: hidden scroll;
+  scrollbar-width: none;
+  height: 854px; /*TODO: Figure out how to stretch div to parent height with respect to the footer and header height*/
+}
+
 </style>

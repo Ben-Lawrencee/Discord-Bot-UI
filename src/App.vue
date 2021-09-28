@@ -26,14 +26,12 @@ export default {
   created() {
     if (this.$store.state.client === null && this.$route.name !== 'Login') {
       console.log("Redirected to Login from initialization")
-      this.$router.push({ name: 'Login', path: '/Login' })
+      this.$router.push({name: 'Login', path: '/Login'})
     }
 
     this.$router.beforeEach((to, from, next) => {
-      console.log(from.path, "to", to.path)
       if (this.$store.state.client === null) {
         if (to.name !== 'Login') {
-          console.log("Redirected to Login")
           next({name: 'Login', path: '/Login'})
           return;
         }
@@ -43,7 +41,27 @@ export default {
         return;
       }
       next();
-    })
+    });
+
+    this.$router.afterEach(to => {
+      switch (to.name) {
+        case 'Login':
+          this.$store.commit('updateViewType', 'Login');
+          return;
+        case 'Home':
+          this.$store.commit('updateViewType', 'DirectView');
+          return;
+        case 'Friends':
+          this.$store.commit('updateViewType', 'DirectView');
+          return;
+        case 'DM':
+          this.$store.commit('updateViewType', 'DirectView');
+          return;
+        case 'GuildChannel':
+          this.$store.commit('updateViewType', 'GuildView');
+          return;
+      }
+    });
   }
 };
 </script>

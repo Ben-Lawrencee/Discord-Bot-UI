@@ -28,10 +28,6 @@ export default {
       type: String,
       required: true
     },
-    selected: {
-      type: Boolean,
-      required: true,
-    },
     onClick: {
       type: Function,
       required: true
@@ -48,15 +44,25 @@ export default {
       this.$refs["user-content"].style.color = 'rgba(255, 255, 255, .9)'
     },
     deselect() {
+      /*TODO: Once selected then deselected, background does not reset to default*/
       this.$refs["user-wrapper"].style.background = 'transparent'
       this.$refs["user-content"].style.color = '#8d9093'
     }
   },
-  watch: {
-    selected: function (val) {
-      val ? this.select() : this.deselect();
-    }
-  }
+  mounted() {
+    this.unwatch = this.$store.watch(
+      (state, getters) => getters.selectedUser,
+      (newValue, oldValue) => {
+        if (newValue === this.UserId)
+          this.select();
+        else if (oldValue === this.UserId)
+          this.deselect();
+      }
+    )
+  },
+  beforeDestroy() {
+    this.unwatch();
+  },
 }
 </script>
 

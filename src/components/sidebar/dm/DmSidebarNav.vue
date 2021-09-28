@@ -1,8 +1,8 @@
 <template>
-  <div class="dm-sidebar-nav-wrapper" v-if="$store.state.users.length > 0">
+  <div class="dm-sidebar-nav-wrapper">
     <div v-for="user in this.$store.state.users" :key="user.id">
       <div class="dm-user-container">
-        <user-card v-show="user.display" :ref="`user-${user.id}`" :UserId="user.id" :on-click="userClicked"
+        <user-card v-show="user.display" :user-id="user.id" :on-click="userClicked"
                    :on-close-clicked="userClosed" :selected="$store.state.users[user.id].selected"/>
       </div>
     </div>
@@ -23,22 +23,17 @@ export default {
     }
   },
   methods: {
-    userClicked(UserId) {
+    async userClicked(UserId) {
       if (!this.$store.state.users[UserId].display)
-        return false;
+        return;
 
       if (this.currentId === UserId)
-        return true;
+        return;
 
-      if (this.currentId === null)
-        this.currentId = UserId
-      else if (this.currentId !== UserId) {
-        this.$store.state.users[this.currentId].selected = false;
-        this.currentId = UserId
-      }
+      if (!(await this.$store.dispatch({ type: 'selectUser', UserId: UserId})))
+        return;
 
-      this.$router.push({name: 'DM', path: '/channel/@bot/:id', params: {id: UserId}})
-      return true;
+      await this.$router.push({name: 'DM', path: '/channel/@bot/:id', params: {id: UserId}})
     },
     userClosed(UserId) {
       this.$store.state.users[UserId].display = false;
@@ -63,7 +58,8 @@ export default {
 .dm-user-container {
   width: max-content;
   margin-left: 8px;
-  margin-top: 4px;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 </style>

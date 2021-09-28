@@ -11,6 +11,7 @@ export default new Vuex.Store({
         lastDmID: null,
         selectedGuild: null,
         selectedUser: null,
+        viewType: 'Login'
         /*guilds: [
           {
             id: "0"
@@ -49,6 +50,9 @@ export default new Vuex.Store({
         deselectUser(state) {
             state.users[state.selectedUser].selected = false;
             state.selectedUser = null;
+        },
+        updateViewType(state, type) {
+            state.viewType = type;
         }
     },
     actions: {
@@ -67,17 +71,17 @@ export default new Vuex.Store({
             return true;
         },
         async selectUser(context, payload) {
-            if (context.state.selectedUser === payload.userId)
+            if (context.state.selectedUser === payload.UserId)
                 return false;
 
-            if (context.state.users[payload.userId] === undefined)
+            if (context.state.users[payload.UserId] === undefined)
                 return false;
 
             if (context.state.selectedUser !== null)
                 context.state.users[context.state.selectedUser].selected = false;
 
-            context.state.users[payload.userId].selected = true;
-            context.state.selectedUser = payload.userId;
+            context.state.users[payload.UserId].selected = true;
+            context.state.selectedUser = payload.UserId;
             return true;
         }
     },

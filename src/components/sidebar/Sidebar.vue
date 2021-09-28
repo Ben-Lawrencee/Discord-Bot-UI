@@ -1,11 +1,11 @@
 <template>
   <div class="sidebar">
     <div class="sidebar-header">
-      <guild-sidebar-header v-if="this.$route.type !== undefined && this.$route.type === 'GuildView'"/>
+      <guild-sidebar-header v-if="this.$store.state.viewType === 'GuildView'"/>
       <dm-header v-else/>
     </div>
     <v-divider light class="toolbar-divider"/>
-    <guild-sidebar-nav v-if="this.$route.type !== undefined && this.$route.type === 'GuildView'"/>
+    <guild-sidebar-nav v-if="this.$store.state.viewType === 'GuildView'"/>
     <dm-sidebar-nav v-else/>
     <sidebar-footer/>
   </div>
@@ -22,7 +22,7 @@ import SidebarFooter from "./SidebarFooter.vue";
 
 export default {
   name: "Sidebar",
-  components: {GuildSidebarNav, GuildSidebarHeader, SidebarFooter, DmSidebarNav, DmHeader}
+  components: {GuildSidebarNav, GuildSidebarHeader, SidebarFooter, DmSidebarNav, DmHeader},
 }
 </script>
 

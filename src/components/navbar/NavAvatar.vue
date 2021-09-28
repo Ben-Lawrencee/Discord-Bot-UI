@@ -23,7 +23,7 @@ export default {
     selected: {
       type: Boolean,
       required: false,
-      default: false,
+      default: null,
     },
     onClick: {
       type: Function,
@@ -61,7 +61,9 @@ export default {
     },
   },
   mounted() {
-    this.selected ? this.select() : this.deselect();
+    if (this.selected !== null)
+      this.selected ? this.select() : this.deselect();
+
     this.unwatch = this.$store.watch(
         (state, getters) => getters.selectedGuild,
         (newValue, oldValue) => {
@@ -72,9 +74,12 @@ export default {
         }
     )
   },
+  beforeDestroy() {
+    if (this.selected !== null)
+      this.unwatch();
+  },
   watch: {
     selected: function (newVal) {
-      console.log("selected changed")
       newVal ? this.select() : this.deselect();
     }
   }

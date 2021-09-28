@@ -16,25 +16,21 @@ const routes = [
         path: '/Home',
         name: 'Home',
         component: Home,
-        type: "DirectView"
     },
     {
         path: '/channel/@bot',
         name: 'Friends',
         component: Friends,
-        type: "DirectView"
     },
     {
         path: '/channel/@bot/:id',
         name: 'DM',
         component: DirectMessage,
-        type: "DirectView"
     },
     {
         path: '/channel/guild/:id',
         name: 'GuildChannel',
         component: GuildChannel,
-        type: "GuildView"
     }
 ]
 

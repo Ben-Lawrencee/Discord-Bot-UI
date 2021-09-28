@@ -3,7 +3,7 @@
     <nav-avatar :guild-id="''" :transparent="false" :selected="homeSelected" :on-click="onHomeClicked"/>
     <v-divider style="width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 10px;"/>
     <div v-for="guild of guilds" v-bind:key="guild.id">
-      <nav-avatar :guild-id="guild.id" :transparent="false" :on-click="onGuildClicked"/>
+      <nav-avatar :guild-id="guild.id" :transparent="true" :on-click="onGuildClicked"/>
     </div>
   </v-sheet>
 </template>
