@@ -1,6 +1,6 @@
 <template>
   <v-sheet class="sidebar-footer" color="intermediate">
-    read if gay
+    Dummy text
   </v-sheet>
 </template>
 
