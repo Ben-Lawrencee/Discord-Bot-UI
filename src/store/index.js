@@ -12,21 +12,6 @@ export default new Vuex.Store({
         selectedGuild: null,
         selectedUser: null,
         viewType: 'Login'
-        /*guilds: [
-          {
-            id: "0"
-          },
-          {
-            id: "1"
-          },
-          {
-            id: "2"
-          },
-          {
-            id: "3"
-          },
-        ],
-        users: {}*/
     },
     mutations: {
         addGuild(state, guild) {

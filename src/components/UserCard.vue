@@ -5,9 +5,14 @@
       <div class="user-name">
         {{ this.$store.state.users[UserId].username }}
       </div>
-      <div v-if="this.$store.state.users[UserId].presence" class="user-status">
-        {{ this.$store.state.users[UserId].presence.activities[0].name }}
-      </div>
+      <v-spacer/>
+      <tooltip v-if="this.$store.state.users[UserId].presence"
+               :text="this.$store.state.users[UserId].presence.activities[0].name" top
+               v-bind:disabled="this.$store.state.users[UserId].presence.activities[0].name.length < 22">
+        <div class="user-status">
+          {{ this.$store.state.users[UserId].presence.activities[0].name }}
+        </div>
+      </tooltip>
     </div>
     <div v-if="onCloseClicked !== null" class="user-close" @click="onCloseClicked(UserId)">
       <svg class="user-close-icon" viewBox="0 0 24 24">
@@ -19,10 +24,11 @@
 
 <script>
 import UserAvatar from "./UserAvatar";
+import Tooltip from "./Tooltip";
 
 export default {
   name: "UserCard",
-  components: {UserAvatar},
+  components: {Tooltip, UserAvatar},
   props: {
     UserId: {
       type: String,
@@ -101,6 +107,9 @@ export default {
 .user-name {
   text-overflow: ellipsis;
   overflow: hidden;
+  max-width: 100%;
+  min-height: 20px;
+  max-height: 20px;
   white-space: nowrap;
 }
 
